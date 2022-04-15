@@ -97,6 +97,7 @@ namespace ChuongBo
         {
             Debug.Log("CONNECTION FAILED! " + errorMessage);
             Disconnect();
+            resetInput();
         }
 
         protected override void OnDisconnected()
@@ -108,6 +109,7 @@ namespace ChuongBo
         {
             Debug.Log("CONNECTION LOST!");
             Disconnect();
+            resetInput();
         }
 
         protected override void Start()
@@ -143,20 +145,29 @@ namespace ChuongBo
         {
             Control_Data control_Data = new Control_Data() { device = "LED", status = status ? "ON" : "OFF" };
             var temp = JsonConvert.SerializeObject(control_Data);
-            client.Publish("/bkiot/1912602/led", System.Text.Encoding.UTF8.GetBytes(temp), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            client.Publish("/bkiot/1912602/led", System.Text.Encoding.UTF8.GetBytes(temp), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
         }
 
         public void UpdatePumpStatus(bool status)
         {
             Control_Data control_Data = new Control_Data() { device = "PUMP", status = status ? "ON" : "OFF" };
             var temp = JsonConvert.SerializeObject(control_Data);
-            client.Publish("/bkiot/1912602/pump", System.Text.Encoding.UTF8.GetBytes(temp), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            client.Publish("/bkiot/1912602/pump", System.Text.Encoding.UTF8.GetBytes(temp), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, true);
         }
 
-        public void OnDestroy()
+        public void LogOut()
         {
             Disconnect();
             GetComponent<ChuongBoManager>().swtichLayout1();
+            resetInput();
         }
+
+        private void resetInput()
+        {
+            uriInputField.text = "";
+            userInputField.text = "";
+            passwordInputField.text = "";
+        }
+
     }
 }

@@ -76,7 +76,7 @@ namespace ChuongBo
 
         public void Disconnect()
         {
-            GetComponent<ChuongBoMqtt>().OnDestroy();
+            GetComponent<ChuongBoMqtt>().LogOut();
         }
 
         public void swtichLayout2()

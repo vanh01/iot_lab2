@@ -58,7 +58,7 @@ namespace M2MqttUnity
         public string mqttUserName = null;
         [Tooltip("Password for the MQTT broker. Keep blank if no password is required.")]
         public string mqttPassword = null;
-        
+
         /// <summary>
         /// Wrapped MQTT client
         /// </summary>
@@ -286,7 +286,7 @@ namespace M2MqttUnity
                 catch (Exception e)
                 {
                     client = null;
-                    Debug.LogErrorFormat("CONNECTION FAILED! {0}", e.ToString());
+                    // Debug.LogErrorFormat("CONNECTION FAILED! {0}", e.ToString());
                     OnConnectionFailed(e.Message);
                     yield break;
                 }
